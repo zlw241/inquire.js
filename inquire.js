@@ -121,6 +121,12 @@ class DOMNodeCollection {
     }
   }
 
+  removeAttr(attrName) {
+    this.each((el) => {
+      el.removeAttribute(attrName)
+    })
+  }
+
   addClass(...classNames) {
     this.each((el) => {
       el.classList.add(...classNames);
@@ -289,27 +295,49 @@ inquire.ajax = function(options) {
     success: (data) => data,
     error: (error) => error
   };
-
   let mergedOptions = this.extend(defaults, options);
 
-  const xhr = new XMLHttpRequest();
-  xhr.open(mergedOptions.method, mergedOptions.url);
-  xhr.onload = function () {
-    console.log(xhr.status);
-    console.log(xhr.responseType);
-    console.log(xhr.response);
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open(mergedOptions.method, mergedOptions.url);
+    xhr.onload = function() {
+      if (this.status >= 200 && this.status < 300) {
+        // mergedOptions.success(JSON.parse(xhr.response));
+        resolve(JSON.parse(xhr.response));
+      } else {
+        // mergedOptions.error(JSON.parse(xhr.response))
+        reject({
+          status: this.status,
+          statusText: xhr.statusText
+        });
+      }
+    };
+    xhr.onerror = function() {
+      // mergedOptions.error(xhr.response);
+      reject({
+        status: this.status,
+        statusText: xhr.statusText
+      });
+    };
 
-    if (xhr.status === 200) {
-      mergedOptions.success(JSON.parse(xhr.response));
-    } else {
-      mergedOptions.error(xhr.response);
-    }
-  };
+    xhr.send(mergedOptions);
+  });
 
-  xhr.send(mergedOptions);
 };
 
 window.inquire = inquire;
+
+window.testAJAX = () => {
+  return inquire.ajax({
+    url: 'https://jsonplaceholder.typicode.com/posts',
+    method: 'POST',
+    data: {
+      title: 'foo',
+      body: 'bar',
+      userId: 1
+    }
+  })
+}
 
 
 /***/ })
