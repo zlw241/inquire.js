@@ -137,7 +137,7 @@ I've added this functionality to the core `inquire` function - the one used to c
   that provides defaults for `success`, `error`, `url`, `method`, `data`, `contentType`, and a couple other things.
 * User provided `options` are merged onto the `defaults`
 * Using the options supplied by the user, make the request.
-* `inquire.ajax` returns a promise which are now natively supported in Javascript, so you should use them!
+* `inquire.ajax` returns a promise which are now natively supported in Javascript, so you should use them!s
 
 [jquery]: http://api.jquery.com/
 [jquery-library]: https://developers.google.com/speed/libraries/#jquery
