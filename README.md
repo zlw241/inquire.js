@@ -8,6 +8,9 @@ Most of this functionality is implemented using the native DOM API
 that is built right in to every browser. For a full list of API methods check
 out the the [MDN site][document-apis].
 
+## To Use inquire.js:
+Simply clone this repo, run webpack, and npm install. There's a demo directory which you can use to play around with some of the code.
+
 ## Goals
 
 + traverse and manipulate the DOM using vanilla JavaScript
