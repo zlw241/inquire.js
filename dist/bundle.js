@@ -198,22 +198,17 @@ class DOMNodeCollection {
 
   on(domEvent, callback) {
     this.each((el) => {
-      // debugger
       el.addEventListener(domEvent, callback);
       const eventKey = `callback-${domEvent}`;
       if (typeof el[eventKey] === "undefined") {
         el[eventKey] = [];
       }
       el[eventKey].push(callback);
-      console.log(el)
-      // inquire(el).attr('callback', callback);
-
     });
   }
 
   off(domEvent) {
     this.each((el) => {
-      // debugger
       const eventKey = `callback-${domEvent}`;
       if (el[eventKey]) {
         el[eventKey].forEach((callback) => {
@@ -221,21 +216,17 @@ class DOMNodeCollection {
         });
       }
       el[eventKey] = [];
-      // el.removeEventListener(domEvent, el.getAttribute('callback'));
-
     });
   }
 
   css(propertyName, value) {
     if (typeof value === "undefined") {
       return this.htmlElements[0].style[propertyName]
-
     } else {
       this.each((el) => {
         el.style[propertyName] = value
       })
     }
-
   }
 }
 
@@ -302,10 +293,8 @@ inquire.ajax = function(options) {
     xhr.open(mergedOptions.method, mergedOptions.url);
     xhr.onload = function() {
       if (this.status >= 200 && this.status < 300) {
-        // mergedOptions.success(JSON.parse(xhr.response));
         resolve(JSON.parse(xhr.response));
       } else {
-        // mergedOptions.error(JSON.parse(xhr.response))
         reject({
           status: this.status,
           statusText: xhr.statusText
@@ -313,7 +302,6 @@ inquire.ajax = function(options) {
       }
     };
     xhr.onerror = function() {
-      // mergedOptions.error(xhr.response);
       reject({
         status: this.status,
         statusText: xhr.statusText
@@ -336,10 +324,10 @@ window.testAJAX = () => {
       body: 'bar',
       userId: 1
     }
-  })
+  });
 }
 
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=inquire.js.map
+//# sourceMappingURL=bundle.js.map
